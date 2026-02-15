@@ -1,65 +1,102 @@
-import Image from "next/image";
+'use client';
+
+import React from 'react';
+import { useRouter } from 'next/navigation';
+import { allBiases } from '../data/biases';
+import { BiasCard } from '../components/BiasCard';
+import { motion } from 'framer-motion';
+import { Info, Search } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Home() {
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = React.useState('');
+
+  const filteredBiases = allBiases.filter(bias => 
+    bias.name_jp.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    bias.name_en.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="space-y-12">
+      <section className="text-center space-y-6 py-12 md:py-20 max-w-4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--primary)]/20 bg-[var(--primary)]/5 text-[var(--primary)] text-sm font-medium mb-4"
+        >
+          <Info size={16} />
+          <span>銀座行動経済大学校 監修</span>
+        </motion.div>
+        
+        <motion.h1 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl font-bold tracking-tight sm:text-6xl font-serif bg-gradient-to-r from-[var(--primary)] via-[var(--accent)] to-[var(--primary)] bg-clip-text text-transparent leading-tight"
+        >
+          行動経済学の知見を<br />ビジネスと人生に
+        </motion.h1>
+        
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mx-auto max-w-2xl text-lg text-[var(--muted-foreground)]"
+        >
+          人間の非合理的な意思決定プロセスを理解し、より良い選択へと導くためのナレッジベース。
+          銀座行動経済大学校が提供する叡智をここに集約。
+        </motion.p>
+
+        <motion.div
+           initial={{ opacity: 0, y: 20 }}
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ delay: 0.3 }}
+           className="relative max-w-md mx-auto mt-8"
+        >
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]" size={18} />
+          <input 
+            type="text"
+            placeholder="バイアスを検索（例: アンカリング）"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-12 pr-4 py-3 rounded-full border border-[var(--border)] bg-[var(--secondary)]/30 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition-all"
+          />
+        </motion.div>
+
+        <motion.div
+           initial={{ opacity: 0 }}
+           animate={{ opacity: 1 }}
+           transition={{ delay: 0.5 }}
+        >
+          <Link href="/about-catalog" className="text-sm font-medium text-[var(--primary)] hover:underline flex items-center justify-center gap-1">
+            このカタログについて詳しく知る <Info size={14} />
+          </Link>
+        </motion.div>
+      </section>
+
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 pb-24">
+        {filteredBiases.map((bias, index) => (
+          <motion.div
+            key={bias.id}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: Math.min(index * 0.05, 1) }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+            <BiasCard 
+              bias={bias} 
+              onClick={() => router.push(`/bias/${bias.id}`)}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </motion.div>
+        ))}
+      </div>
+      
+      {filteredBiases.length === 0 && (
+        <div className="text-center py-20">
+          <p className="text-[var(--muted-foreground)]">該当するバイアスが見つかりませんでした。</p>
         </div>
-      </main>
+      )}
     </div>
   );
 }
