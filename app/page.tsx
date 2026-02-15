@@ -27,7 +27,7 @@ export default function Home() {
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--primary)]/20 bg-[var(--primary)]/5 text-[var(--primary)] text-sm font-medium mb-4"
         >
           <Info size={16} />
-          <span>行動経済学ガイド 監修</span>
+          <span>行動経済学ガイド</span>
         </motion.div>
         
         <motion.h1 
