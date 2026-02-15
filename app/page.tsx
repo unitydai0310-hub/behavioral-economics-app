@@ -27,7 +27,7 @@ export default function Home() {
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--primary)]/20 bg-[var(--primary)]/5 text-[var(--primary)] text-sm font-medium mb-4"
         >
           <Info size={16} />
-          <span>銀座行動経済大学校 監修</span>
+          <span>行動経済学ガイド 監修</span>
         </motion.div>
         
         <motion.h1 
@@ -46,7 +46,7 @@ export default function Home() {
           className="mx-auto max-w-2xl text-lg text-[var(--muted-foreground)]"
         >
           人間の非合理的な意思決定プロセスを理解し、より良い選択へと導くためのナレッジベース。
-          銀座行動経済大学校が提供する叡智をここに集約。
+          行動経済学ガイドが提供する叡智をここに集約。
         </motion.p>
 
         <motion.div

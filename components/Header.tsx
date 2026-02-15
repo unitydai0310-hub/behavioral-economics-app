@@ -8,7 +8,7 @@ export const Header: React.FC = () => {
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center space-x-2">
             <span className="text-xl font-bold font-serif tracking-tight text-[var(--foreground)]">
-              銀座行動経済大学校
+              行動経済学ガイド
             </span>
             <span className="hidden sm:inline-block text-xs text-[var(--primary)] font-semibold uppercase tracking-widest border-l border-[var(--border)] pl-2 ml-2">
               Behavioral Economics

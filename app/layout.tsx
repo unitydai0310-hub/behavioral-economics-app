@@ -7,7 +7,7 @@ const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-serif'
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
-  title: '銀座行動経済大学校 - Behavioral Economics',
+  title: '行動経済学ガイド - Behavioral Economics',
   description: 'Behavioral Economics Biases and Consulting',
 };
 
@@ -24,7 +24,7 @@ export default function RootLayout({
           {children}
         </main>
         <footer className="border-t border-[var(--border)] py-6 text-center text-sm text-[var(--muted-foreground)]">
-          &copy; {new Date().getFullYear()} 銀座行動経済大学校
+          &copy; {new Date().getFullYear()} 行動経済学ガイド
         </footer>
       </body>
     </html>
