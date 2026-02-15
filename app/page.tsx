@@ -46,7 +46,7 @@ export default function Home() {
           className="mx-auto max-w-2xl text-lg text-[var(--muted-foreground)]"
         >
           人間の非合理的な意思決定プロセスを理解し、より良い選択へと導くためのナレッジベース。
-          行動経済学ガイドが提供する叡智をここに集約。
+          最新の行動経済学の知見をここに集約。
         </motion.p>
 
         <motion.div
@@ -63,16 +63,6 @@ export default function Home() {
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-12 pr-4 py-3 rounded-full border border-[var(--border)] bg-[var(--secondary)]/30 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition-all"
           />
-        </motion.div>
-
-        <motion.div
-           initial={{ opacity: 0 }}
-           animate={{ opacity: 1 }}
-           transition={{ delay: 0.5 }}
-        >
-          <Link href="/about-catalog" className="text-sm font-medium text-[var(--primary)] hover:underline flex items-center justify-center gap-1">
-            このカタログについて詳しく知る <Info size={14} />
-          </Link>
         </motion.div>
       </section>
 
