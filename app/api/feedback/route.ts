@@ -7,7 +7,9 @@ export async function POST(req: Request) {
     const resendApiKey = process.env.RESEND_API_KEY;
     if (!resendApiKey) {
       console.error('RESEND_API_KEY is not set');
-      return new Response(JSON.stringify({ error: 'Notification system not configured' }), { status: 500 });
+      return new Response(JSON.stringify({ 
+        error: '通知システムのキー（RESEND_API_KEY）が設定されていません。Vercelまたは.env.localを確認してください。' 
+      }), { status: 500 });
     }
 
     const resend = new Resend(resendApiKey);
@@ -33,7 +35,7 @@ export async function POST(req: Request) {
 
     if (error) {
       console.error('Resend API error:', error);
-      throw new Error(error.message);
+      return new Response(JSON.stringify({ error: `メール送信エラー: ${error.message}` }), { status: 500 });
     }
 
     return new Response(JSON.stringify({ success: true, id: data?.id }), { status: 200 });

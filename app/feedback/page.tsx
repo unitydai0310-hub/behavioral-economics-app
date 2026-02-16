@@ -8,12 +8,14 @@ import Link from 'next/link';
 export default function FeedbackPage() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.message.trim()) return;
 
     setStatus('loading');
+    setErrorMessage('');
     try {
       const response = await fetch('/api/feedback', {
         method: 'POST',
@@ -21,12 +23,17 @@ export default function FeedbackPage() {
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) throw new Error('送信に失敗しました');
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(data.error || '送信に失敗しました');
+      }
       
       setStatus('success');
       setFormData({ name: '', email: '', message: '' });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Feedback error:', error);
+      setErrorMessage(error.message);
       setStatus('error');
     }
   };
@@ -104,9 +111,9 @@ export default function FeedbackPage() {
             </div>
 
             {status === 'error' && (
-              <div className="flex items-center gap-2 text-red-500 bg-red-500/10 p-4 rounded-xl text-sm">
-                <AlertCircle size={18} />
-                <span>送信中にエラーが発生しました。時間をおいて再度お試しください。</span>
+              <div className="flex items-center gap-2 text-red-500 bg-red-500/10 p-4 rounded-xl text-sm leading-relaxed">
+                <AlertCircle size={18} className="shrink-0" />
+                <span>{errorMessage || '送信中にエラーが発生しました。時間をおいて再度お試しください。'}</span>
               </div>
             )}
 
