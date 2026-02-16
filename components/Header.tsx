@@ -24,6 +24,12 @@ export const Header: React.FC = () => {
             カタログ
           </Link>
           <Link 
+            href="/feedback" 
+            className="text-sm font-medium text-[var(--muted-foreground)] transition-colors hover:text-[var(--primary)]"
+          >
+            フィードバック
+          </Link>
+          <Link 
             href="/chat" 
             className="hidden sm:flex items-center gap-2 rounded-full bg-[var(--primary)] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[var(--accent)]"
           >
